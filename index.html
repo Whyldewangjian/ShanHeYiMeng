@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>山河一梦 · 破妄江湖</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- 天气冷暖遮罩 -->
+  <div id="weatherTint" class="w-clear"></div>
+  <!-- 开始画面 -->
+  <div id="startScreen">
+    <div class="start-box">
+      <div class="start-ink"></div>
+      <div class="start-title">山河一梦</div>
+      <div class="start-sub">破妄江湖 · 庄周梦蝶</div>
+      <div class="start-slogan">梦里不知身是客，一晌贪欢</div>
+      <div class="start-seal">山河一梦</div>
+      <button id="startBtn">🗡 踏入江湖</button>
+    </div>
+  </div>
+
+  <div id="app">
+    <!-- 音乐开关（主界面右上角） -->
+    <button id="musicBtn" class="music-btn" title="音乐开关">🔊</button>
+    <!-- 顶部状态栏 -->
+    <header id="hud"></header>
+
+    <!-- 主线目标常驻提示 -->
+    <div id="storyHint" class="story-hint"></div>
+
+    <!-- 战斗面板：敌人像素头像 + 血槽 -->
+    <div id="combatPanel" style="display:none;"></div>
+
+    <!-- 主内容：日志 + 操作 -->
+    <main id="main">
+      <div id="log"></div>
+      <div id="actions"></div>
+    </main>
+
+    <!-- 底部导航 -->
+    <nav id="nav">
+      <div class="nav-item">
+        <button class="nav-toggle"><svg class="nav-ico" viewBox="0 0 16 16" aria-hidden="true"><rect x="7" y="1" width="2" height="8" fill="#d8b26a"/><rect x="3" y="9" width="10" height="2" fill="#c9a05a"/><rect x="7" y="11" width="2" height="4" fill="#8a6a3a"/><rect x="6" y="14" width="4" height="1" fill="#c9a05a"/></svg>行动</button>
+        <div class="nav-drop">
+          <button data-screen="explore">🗡 探索</button>
+          <button data-screen="map">🗺 地图</button>
+        </div>
+      </div>
+      <button data-screen="bag" class="nav-direct"><svg class="nav-ico" viewBox="0 0 16 16" aria-hidden="true"><rect x="5" y="4" width="6" height="3" fill="#8a6a3a"/><rect x="3" y="7" width="10" height="8" fill="#c9a05a"/><rect x="3" y="10" width="10" height="1" fill="#8a6a3a"/></svg>背包</button>
+      <div class="nav-item">
+        <button class="nav-toggle"><svg class="nav-ico" viewBox="0 0 16 16" aria-hidden="true"><rect x="4" y="5" width="8" height="2" fill="#c9a05a"/><rect x="3" y="7" width="10" height="6" fill="#8a6a3a"/><rect x="5" y="13" width="2" height="3" fill="#8a6a3a"/><rect x="9" y="13" width="2" height="3" fill="#8a6a3a"/></svg>修为</button>
+        <div class="nav-drop">
+          <button data-screen="tech">📜 功法</button>
+          <button data-screen="talent">🌟 天赋</button>
+          <button data-screen="realm">🌀 境界</button>
+        </div>
+      </div>
+      <div class="nav-item">
+        <button class="nav-toggle"><svg class="nav-ico" viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="4" width="2" height="8" fill="#8a6a3a"/><rect x="12" y="4" width="2" height="8" fill="#8a6a3a"/><rect x="4" y="5" width="8" height="6" fill="#c9a05a"/><rect x="5" y="6" width="6" height="1" fill="#8a6a3a"/><rect x="5" y="8" width="6" height="1" fill="#8a6a3a"/></svg>剧情</button>
+        <div class="nav-drop">
+          <button data-screen="story">📖 主线</button>
+          <button data-screen="quest">📜 任务</button>
+          <button data-screen="handbook">📓 手札</button>
+          <button data-screen="clues">🔍 线索</button>
+        </div>
+      </div>
+      <button data-screen="sect" class="nav-direct"><svg class="nav-ico" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="2" width="10" height="2" fill="#c9a05a"/><rect x="1" y="4" width="14" height="2" fill="#d8b26a"/><rect x="3" y="6" width="2" height="9" fill="#8a6a3a"/><rect x="11" y="6" width="2" height="9" fill="#8a6a3a"/><rect x="2" y="14" width="12" height="1" fill="#c9a05a"/></svg>门派</button>
+      <button data-screen="lover" class="nav-direct"><svg class="nav-ico" viewBox="0 0 16 16" aria-hidden="true"><rect x="6" y="2" width="4" height="1" fill="#d8b26a"/><rect x="5" y="3" width="6" height="1" fill="#d8b26a"/><rect x="4" y="4" width="8" height="5" fill="#c9a05a"/><rect x="5" y="9" width="6" height="1" fill="#d8b26a"/><rect x="6" y="10" width="4" height="1" fill="#d8b26a"/><rect x="7" y="11" width="2" height="4" fill="#8a6a3a"/><rect x="6" y="15" width="4" height="1" fill="#c9a05a"/></svg>红颜</button>
+      <div class="nav-item">
+        <button class="nav-toggle"><svg class="nav-ico" viewBox="0 0 16 16" aria-hidden="true"><rect x="7" y="3" width="2" height="5" fill="#8a6a3a"/><rect x="3" y="8" width="10" height="6" fill="#c9a05a"/><rect x="6" y="10" width="4" height="2" fill="#8a6a3a"/></svg>系统</button>
+        <div class="nav-drop">
+          <button data-screen="achievements">🏆 成就</button>
+          <button data-screen="chronicle">📜 江湖录</button>
+          <button data-screen="menu">⚙ 菜单</button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- 创建角色面板 -->
+    <div id="createPanel" style="display:none;">
+      <div class="create-box">
+        <h2>创建你的侠客</h2>
+        <label>名号</label>
+        <input type="text" id="nameInput" maxlength="12" placeholder="输入你的江湖名号">
+        <label>本命五行</label>
+        <select id="elementSelect">
+          <option value="jin">金 · 锋锐无匹</option>
+          <option value="mu">木 · 生生不息</option>
+          <option value="tu">土 · 厚重沉稳</option>
+          <option value="shui">水 · 至柔至刚</option>
+          <option value="huo">火 · 刚猛爆烈</option>
+        </select>
+        <label>初始兵器</label>
+        <select id="weaponSelect">
+          <option value="sword">剑 · 轻灵</option>
+          <option value="dao">刀 · 刚猛</option>
+          <option value="qiang">枪 · 一寸长一寸强</option>
+          <option value="gun">棍 · 横扫</option>
+          <option value="dagger">双匕 · 迅捷</option>
+          <option value="hidden">暗器 · 阴险</option>
+          <option value="fist">拳套 · 拳拳到肉</option>
+          <option value="whip">长鞭 · 缠斗</option>
+          <option value="fan">铁扇 · 风雅</option>
+          <option value="bow">弓弩 · 先手</option>
+        </select>
+        <button id="createConfirm">踏入江湖</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 悬浮提示 -->
+  <div id="tooltip" style="display:none;"></div>
+
+  <!-- 奇遇浮窗 -->
+  <div id="eventModal" style="display:none;">
+    <div class="event-box">
+      <div id="eventTitle" class="event-title">✨ 奇遇</div>
+      <div id="eventDesc" class="event-desc"></div>
+      <div id="eventChoices" class="event-choices"></div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/music.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>
